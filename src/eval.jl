@@ -85,10 +85,11 @@ handle("eval") do data
     unlock(evallock)
 
     Base.invokelatest() do
-      display = Media.getdisplay(typeof(result), Media.pool(Editor()), default = Editor())
-      !isa(result, EvalError) && ends_with_semicolon(text) && (result = nothing)
-      display ≠ Editor() && result ≠ nothing && render(display, result)
-      render′(Editor(), result)
+      # display = Media.getdisplay(typeof(result), Media.pool(Editor()), default = Editor())
+      # !isa(result, EvalError) && ends_with_semicolon(text) && (result = nothing)
+      # display ≠ Editor() && result ≠ nothing && render(display, result)
+      # render′(Editor(), result)
+      display(JunoEditorInput(result))
     end
   end
 end
@@ -127,7 +128,6 @@ handle("evalall") do data
   end
   return
 end
-
 
 handle("evalrepl") do data
   @dynamic let Media.input = Console()
